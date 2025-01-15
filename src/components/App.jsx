@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { Suspense, lazy } from "react";
-import Spinner from "react";
+//import Spinner from "react";
 
 const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
 const MoviesPage = lazy(() => import("../pages/MoviesPage/MoviesPage"));
@@ -8,12 +8,15 @@ const MovieDetailPage = lazy(() =>
   import("../pages/MovieDetailPage/MovieDetailPage")
 );
 const MovieCast = lazy(() => import("../components/MovieCast/MovieCast"));
-const MovieReviews = lazy(() => import("../components/MovieReviews"));
+const MovieReviews = lazy(() =>
+  import("../components/MovieReviews/MovieReviews")
+);
 const NotFoundPage = lazy(() => import("../pages/NotFoundPage/NotFoundPage"));
 
 const App = () => {
   return (
     <>
+      <Header />
       <Suspense fallback={<Spinner />}>
         <Routes>
           <Route path="/" element={<HomePage />} />

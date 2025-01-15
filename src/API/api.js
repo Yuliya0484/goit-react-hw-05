@@ -1,23 +1,10 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "https://dummyjson.com";
+const API_KEY = "8aba4e3419a44727b7eb66f35fce4fa2";
+const BASE_URL = "https://api.themoviedb.org/3";
 
-export const fetchAllUsers = async () => {
-  const { data } = await axios.get("/users?limit=200");
-  return data.users;
+export const fetchTrendingMovies = () => {
+  return axios.get(`${BASE_URL}/trending/movie/day`, {
+    headers: { Authorization: `Bearer ${API_KEY}` },
+  });
 };
-export const fetchUserById = async (id) => {
-  const { data } = await axios.get(`/users/${id}`);
-  return data;
-};
-
-export const fetchPostsByUserId = async (userId) => {
-  const { data } = await axios.get(`/posts/user/${userId}`);
-  return data.posts;
-};
-export const fetchPostByPostId = async (postId) => {
-  const { data } = await axios.get(`/posts/${postId}`);
-  return data;
-};
-
-// const API_KEY = "8aba4e3419a44727b7eb66f35fce4fa2";

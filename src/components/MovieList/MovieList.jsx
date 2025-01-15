@@ -1,20 +1,23 @@
-import { Link } from "react-router-dom";
-import s from "./UserList.module.css";
+import { Link, useLocation } from "react-router-dom";
+import s from "./MovieList.module.css";
 
-const UserList = ({ users }) => {
+const MovieList = ({ movies }) => {
+  const location = useLocation();
   return (
-    <div>
-      <ul className={s.user_list}>
-        {users.map((item) => (
-          <li className={s.user_item} key={item.id}>
-            <Link className={s.user_link} to={item.id.toString()}>
-              {item.firstName} {item.lastName}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul className={s.movies_list}>
+      {movies.map((movie) => (
+        <li className={s.movie_item} key={movie.id}>
+          <Link
+            className={s.movie_link}
+            to={`/movies/${movie.id}`}
+            state={{ from: location }}
+          >
+            {movie.title || movie.name}
+          </Link>
+        </li>
+      ))}
+    </ul>
   );
 };
 
-export default UserList;
+export default MovieList;

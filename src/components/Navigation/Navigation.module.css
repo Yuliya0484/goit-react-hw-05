@@ -1,0 +1,15 @@
+.header {
+  background-color: rgb(45, 74, 45);
+  border-bottom: 1px solid black;
+}
+
+.nav {
+  display: flex;
+  gap: 24px;
+}
+.link {
+  color: black;
+}
+.active {
+  color: white;
+}

@@ -1,10 +1,10 @@
-.user_list {
+.movies_list {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 12px;
 }
-.user_link {
+.movie_link {
   color: black;
   &:hover {
     color: white;
