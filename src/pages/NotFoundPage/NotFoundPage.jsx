@@ -1,5 +1,16 @@
-const NotFound = () => {
-  return <div></div>;
+import { Link } from "react-router-dom";
+import s from "./NotFoundPage.module.css";
+
+const NotFoundPage = () => {
+  return (
+    <div className={s.container}>
+      <h1 className={s.title}>404 - Page Not Found</h1>
+      <p className={s.text}>Ooops! The page you're looking for doesn't exist</p>
+      <Link to="/" className={s.link}>
+        Go back to Home Page
+      </Link>
+    </div>
+  );
 };
 
-export default NotFound;
+export default NotFoundPage;

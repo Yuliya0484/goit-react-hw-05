@@ -1,51 +1,47 @@
-import { useState, useEffect } from "react";
-//import { fetchAllUsers } from "../../API/api";
-//import UserList from "../../components/MovieList/MovieList";
-//import SearchBar from "../../components/SearchBar/SearchBar";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useState } from "react";
+import { fetchMoviesByQuery } from "../../API/api";
+//import { useLocation, useSearchParams } from "react-router-dom";
 
-const Movies = () => {
+const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const location = useLocation();
-  console.log(location);
+  const [query, setQuery] = useState("");
+  //const [searchParams, setSearchParams] = useSearchParams();
+  //const location = useLocation();
+  //console.log(location);
+  const [error, setError] = useState(null);
 
-  const query = searchParams.get("query") ?? "";
-
-  useEffect(() => {
-    const getData = async () => {
-      const data = await fetchAllMovies();
-      setMovies(data);
-    };
-    getData();
-  }, []);
-
-  const handleChangeQuery = (newQuery) => {
-    if (!newQuery) {
-      searchParams.delete("query");
-      return setSearchParams(searchParams);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!query.trim()) {
+      return;
     }
-    searchParams.set("query", newQuery);
-    setSearchParams(searchParams);
+    try {
+      const results = await fetchMoviesByQuery(query);
+      setMovies(results);
+      setError(null);
+    } catch (err) {
+      setError("Something went wrong, please try again!");
+    }
   };
-
-  const filteredMovies = movies.filter(
-    (movie) =>
-      movie.firstName.toLowerCase().includes(query.toLowerCase()) ||
-      movie.lastName.toLowerCase().includes(query.toLowerCase())
-  );
 
   return (
     <div className="container">
-      <h2>Users from API</h2>
-      <SearchBar handleChangeQuery={handleChangeQuery} query={query} />
-      <MovieList users={filteredMovies} />
+      <form onSubmit={handleSubmit} className={s.form}>
+        <input
+          className={s.input}
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search movies..."
+        />
+        <button type="submit" className={s.button}>
+          Search
+        </button>
+      </form>
+      {error && <p className={s.error_text}>{error}</p>}
+      <MovieList movies={movies} />
     </div>
   );
 };
 
-export default Movies;
-
-// const handleSubmit = (value) => {
-//   setSearchParams({ query: value });
-// };
+export default MoviesPage;
