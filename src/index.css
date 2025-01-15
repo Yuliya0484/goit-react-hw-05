@@ -1,0 +1,58 @@
+body {
+  width: 100%;
+  padding: 0;
+  background-color: rgb(92, 141, 111);
+}
+ul,
+li,
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+img {
+  display: block;
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+}
+.main-box {
+  padding: 24px;
+}
+button {
+  cursor: pointer;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  margin: 24px 24px 24px 0;
+  background-color: transparent;
+  box-shadow: 2px 2px 4px 4px white;
+
+  &:hover {
+    background-color: rgb(31, 82, 51);
+    color: white;
+  }
+}
+.postDetails {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 2fr 4fr;
+}
+.outlet {
+  border-radius: 8px;
+  box-shadow: 2px 2px 5px 5px darkgrey;
+}
+.input {
+  margin-right: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background-color: transparent;
+  box-shadow: 2px 2px 4px 4px white;
+}
+.container {
+  padding: 24px;
+}
