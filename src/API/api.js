@@ -19,3 +19,5 @@ export const fetchPostByPostId = async (postId) => {
   const { data } = await axios.get(`/posts/${postId}`);
   return data;
 };
+
+// const API_KEY = "8aba4e3419a44727b7eb66f35fce4fa2";
