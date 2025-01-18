@@ -1,70 +1,68 @@
 import s from "./MovieDetailsPage.module.css";
 import { fetchMovieDetails } from "../../API/api";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import {
+  useParams,
+  Outlet,
+  NavLink,
+  Link,
+  useLocation,
+} from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+//import Loading from "../../components/Loading/Loading";
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
-  const navigate = useNavigate();
-  const location = useLocation();
   const [movie, setMovie] = useState(null);
-  const [error, setError] = useState(null);
+  const location = useLocation();
+  const goBackRef = useRef(location.state ?? "/movies");
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function getMovieDetails() {
-      try {
-        const data = await fetchMovieDetails(movieId);
-        setMovie(data);
-      } catch (err) {
-        setError("Failed to load movie detaols");
-      }
-    }
-    getMovieDetails();
+    const getData = async () => {
+      const movie = await fetchMovieDetails(movieId);
+      setMovie(movie);
+    };
+    getData();
   }, [movieId]);
 
-  const handleGoBack = () => {
-    navigate(location.state?.from || "/movies");
-  };
   if (!movie) {
-    return <p>Loading...</p>;
+    return <h2>Loading...</h2>;
   }
+
   return (
     <div className={s.container}>
-      <button className={s.button} onClick={handleGoBack}>
-        Go back
-      </button>
-      <div>
+      <Link className={s.backbtn} to={goBackRef.current}>
+        Go Back
+      </Link>
+      <div className={s.poster_box}>
         <img
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+          src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
           alt={movie.title}
           className={s.poster}
         />
         <div className={s.info}>
-          <h2>{movie.title}</h2>
-          <p>User Score: {movie.vote_average}</p>
-          <h3>Overview</h3>
+          <h2>{`${movie.title}(${new Date(movie.release_date).getFullYear()})`}</h2>
+          <h3>User Score: {movie.vote_average}</h3>
+          <h3>Overview: </h3>
           <p>{movie.overview}</p>
-          <h3>Genres</h3>
+          <h3>Genres: </h3>
           <p>{movie.genres.map((genre) => genre.name).join(", ")}</p>
         </div>
       </div>
 
       <div className={s.additional}>
-        <h3>Additional Information</h3>
-        <ul>
-          <li>
-            <Link to="cast" state={{ from: location.state?.from }}>
-              Cast
-            </Link>
-          </li>
-          <li>
-            <Link to="reviews" state={{ from: location.state?.from }}>
-              Reviews
-            </Link>
-          </li>
-        </ul>
+        <h3 className={s.aditional_title}>Additional Information</h3>
+        <NavLink className={s.aditional_link} to="cast">
+          Cast
+        </NavLink>
+        <NavLink className={s.aditional_link} to="reviews">
+          Reviews
+        </NavLink>
       </div>
-      <Outlet />
+      <div className={s.outlet}>
+        <Outlet />
+      </div>
     </div>
   );
 };

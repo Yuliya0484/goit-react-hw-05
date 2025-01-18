@@ -4,9 +4,11 @@ import s from "./NotFoundPage.module.css";
 const NotFoundPage = () => {
   return (
     <div className={s.container}>
-      <h1 className={s.title}>404 - Page Not Found</h1>
-      <p className={s.text}>Ooops! The page you're looking for doesn't exist</p>
-      <Link to="/" className={s.link}>
+      <h1 className={s.notfoundtitle}>404 - Page Not Found</h1>
+      <p className={s.notfoundtext}>
+        Ooops! The page you're looking for doesn't find!
+      </p>
+      <Link to="/" className={s.notfoundlink}>
         Go back to Home Page
       </Link>
     </div>

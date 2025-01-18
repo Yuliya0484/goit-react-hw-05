@@ -2,17 +2,20 @@
   text-align: center;
   padding: 50px;
 }
-.title {
+.notfoundtitle {
   font-size: 48px;
   color: #ff6347;
 }
-.text {
+.notfoundtext {
   font-size: 18px;
   margin: 20px 0;
 }
-.link {
+.notfoundlink {
   font-size: 20px;
-  color: #007bff;
+  color: black;
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 8px;
   text-decoration: none;
   font-weight: bold;
   &:hover {

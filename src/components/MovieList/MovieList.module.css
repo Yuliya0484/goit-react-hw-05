@@ -1,8 +1,16 @@
-.item {
-  margin-bottom: 10px;
+.movies_list {
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+  margin-left: 24px;
+  margin-top: 16px;
 }
-.link {
+.movies_item {
+}
+.movies_link {
   color: black;
+  text-decoration: none;
+  text-shadow: 0px 0px 4px whitesmoke;
   &:hover {
     color: white;
     text-decoration: underline;

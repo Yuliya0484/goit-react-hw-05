@@ -6,13 +6,13 @@ const Navigation = () => {
     <header className={s.header}>
       <nav className={s.nav}>
         <NavLink
-          className={({ isActive }) => (isActive ? StyleSheet.active : "")}
+          className={({ isActive }) => (isActive ? s.active : s.link)}
           to="/"
         >
           Home Page
         </NavLink>
         <NavLink
-          className={({ isActive }) => (isActive ? StyleSheet.active : "")}
+          className={({ isActive }) => (isActive ? s.active : s.link)}
           to="/movies"
         >
           Movies

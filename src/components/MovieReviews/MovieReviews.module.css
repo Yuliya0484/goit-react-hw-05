@@ -1,0 +1,27 @@
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
+
+.author {
+  font-weight: bold;
+  margin: 0 0 5px;
+}
+
+.content {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.message {
+  font-size: 16px;
+  color: #555;
+  margin-top: 20px;
+}

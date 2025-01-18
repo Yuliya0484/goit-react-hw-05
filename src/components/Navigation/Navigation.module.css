@@ -1,17 +1,27 @@
 .header {
-  background-color: rgb(45, 74, 45);
-  border-bottom: 1px solid black;
+  display: flex;
+  justify-content: center;
+  padding: 12px 0;
+  margin-bottom: 12px;
 }
 
 .nav {
   display: flex;
-  gap: 24px;
+  gap: 40px;
+  width: fit-content;
+  border-radius: 8px;
+  box-shadow: 0px 2px 10px 7px white;
+  justify-content: center;
+  padding: 12px;
+  background-color: #234377;
 }
-a {
-  color: black;
+.link {
+  text-decoration: none;
+  color: white;
+  font-size: 24px;
 }
 .active {
-  font-weight: bold;
   text-decoration: underline;
   color: white;
+  font-size: 24px;
 }
