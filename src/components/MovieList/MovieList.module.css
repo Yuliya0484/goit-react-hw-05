@@ -1,11 +1,12 @@
 .movies_list {
   display: flex;
   gap: 12px;
-  flex-direction: column;
-  margin-left: 24px;
-  margin-top: 16px;
+  flex-wrap: wrap;
+  align-items: stretch;
+  margin-bottom: 12px;
 }
 .movies_item {
+  transition: transform 0.3s;
 }
 .movies_link {
   color: black;
@@ -15,4 +16,10 @@
     color: white;
     text-decoration: underline;
   }
+}
+img {
+  width: 350px;
+  height: 450px;
+  max-width: 100%;
+  border-radius: 4px;
 }

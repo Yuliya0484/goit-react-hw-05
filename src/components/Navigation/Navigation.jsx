@@ -9,7 +9,7 @@ const Navigation = () => {
           className={({ isActive }) => (isActive ? s.active : s.link)}
           to="/"
         >
-          Home Page
+          Home
         </NavLink>
         <NavLink
           className={({ isActive }) => (isActive ? s.active : s.link)}
