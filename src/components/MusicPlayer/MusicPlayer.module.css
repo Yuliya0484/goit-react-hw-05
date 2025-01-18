@@ -1,0 +1,22 @@
+.player {
+  display: flex;
+  box-shadow: 0px 2px 10px 7px white;
+  padding: 4px;
+  border-radius: 8px;
+  color: white;
+  width: fit-content;
+}
+
+.button {
+  padding: 4px 6px;
+  background-color: white;
+  color: rgba(23, 57, 81);
+  border: 1px solid #235780;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.volume {
+  width: 70px;
+  cursor: pointer;
+}

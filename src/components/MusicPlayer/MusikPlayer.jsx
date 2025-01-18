@@ -1,0 +1,55 @@
+import { useState, useRef, useEffect } from "react";
+import s from "./MusicPlayer.module.css";
+import Audio from "../../assets/sound/corporate-project-no-copyright-advertising-212472.mp3";
+
+const MusicPlayer = () => {
+  const [isPlaying, setIsPlaying] = useState(true);
+  const audioRef = useRef(null);
+
+  useEffect(() => {
+    if (isPlaying) {
+      const playAudio = async () => {
+        try {
+          await audioRef.current.play();
+        } catch (error) {
+          console.error("Автовідтворення заблоковано браузером:", error);
+          setIsPlaying(false);
+        }
+      };
+
+      playAudio();
+    }
+  }, [isPlaying]);
+
+  const handlePlayPause = () => {
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleVolumeChange = (e) => {
+    audioRef.current.volume = e.target.value;
+  };
+
+  return (
+    <div className={s.player}>
+      <audio ref={audioRef} src={Audio} loop />
+      <button className={s.button} onClick={handlePlayPause}>
+        {isPlaying ? "Pause" : "Play"}
+      </button>
+      <input
+        className={s.volume}
+        type="range"
+        min="0"
+        max="1"
+        step="0.01"
+        onChange={handleVolumeChange}
+      />
+    </div>
+  );
+};
+
+export default MusicPlayer;
