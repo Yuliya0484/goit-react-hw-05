@@ -4,24 +4,27 @@
 .form {
   display: flex;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 .input {
   flex-grow: 1;
-  padding: 10px;
-  font-size: 16px;
+  padding: 12px;
+  font-size: 18px;
 }
 .button {
-  padding: 10px 20px;
-  border-color: #007bff;
-  color: white;
+  padding: 8px 24px;
+  background-color: white;
+  color: #234377;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   &:hover {
-    background-color: #0056b3;
+    background-color: #234377;
+    border: 1px solid white;
+    color: white;
   }
 }
+
 .error {
   color: red;
   font-weight: bold;

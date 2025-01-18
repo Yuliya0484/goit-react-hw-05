@@ -2,21 +2,30 @@ import { useState, useEffect } from "react";
 import fetchMoviesByQuery from "../../API/api";
 import MovieList from "../../components/MovieList/MovieList";
 import s from "./MoviesPage.module.css";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
+import Loader from "../../components/Loading/Loading";
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  const location = useLocation();
-  console.log(location);
 
   const query = searchParams.get("query") ?? "";
 
   useEffect(() => {
+    if (!query) return;
+
     const getData = async () => {
-      const data = await fetchMoviesByQuery(query);
-      setMovies(data) || [];
+      setIsLoading(true);
+      try {
+        const data = await fetchMoviesByQuery(query);
+        setMovies(data) || [];
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
     };
     getData();
   }, [query]);
@@ -36,9 +45,6 @@ const MoviesPage = () => {
     searchParams.set("query", newQuery);
     setSearchParams(searchParams);
   };
-  // const filteredMovies = movies.filter((movie) =>
-  //   movie.title.toLowerCase().includes(query.toLowerCase())
-  // );
 
   return (
     <div className="container">
@@ -48,14 +54,23 @@ const MoviesPage = () => {
             className={s.input}
             type="text"
             name="query"
-            placeholder="Search movies..."
+            placeholder="Enter your request"
           />
           <button type="submit" className={s.button}>
             Search
           </button>
         </Form>
-        <MovieList movies={movies} />
       </Formik>
+      {query && !isLoading && (
+        <>
+          {query.length > 0 ? (
+            <MovieList movies={movies} isLoading={isLoading} />
+          ) : (
+            <p>Any movies found for {query}!</p>
+          )}
+        </>
+      )}
+      {isLoading && <Loader />}
     </div>
   );
 };

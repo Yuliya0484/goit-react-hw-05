@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { fetchMovieCast } from "../../API/api";
 import s from "./MovieCast.module.css";
 import { useEffect, useState } from "react";
-import Loading from "../Loading/Loading";
+//import Loading from "../Loading/Loading";
 
 const MovieCast = () => {
   const { movieId } = useParams();

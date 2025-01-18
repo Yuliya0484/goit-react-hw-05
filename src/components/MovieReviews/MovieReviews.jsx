@@ -19,10 +19,7 @@ const MovieReviews = () => {
   }, [movieId]);
 
   if (reviews.length === 0) {
-    return <p className={s.message}>No reviews found for this movie.</p>;
-  }
-  if (error) {
-    return <p>{error}</p>;
+    return <p className={s.message}>This movie has no reviews!!!</p>;
   }
 
   return (
@@ -37,7 +34,7 @@ const MovieReviews = () => {
           ))}
         </ul>
       ) : (
-        <p>This movie has no reviews!!!</p>
+        <p className={s.message}>This movie has no reviews!!!</p>
       )}
     </>
   );
