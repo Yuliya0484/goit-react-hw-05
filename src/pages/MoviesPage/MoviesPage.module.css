@@ -4,12 +4,13 @@
 .form {
   display: flex;
   gap: 10px;
+  justify-content: center;
   margin-bottom: 24px;
 }
 .input {
-  flex-grow: 1;
   padding: 12px;
   font-size: 18px;
+  width: 250px;
 }
 .button {
   padding: 8px 24px;
