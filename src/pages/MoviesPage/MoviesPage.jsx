@@ -4,28 +4,22 @@ import MovieList from "../../components/MovieList/MovieList";
 import s from "./MoviesPage.module.css";
 import { useSearchParams } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
-import Loader from "../../components/Loading/Loading";
+//import Loader from "../../components/Loading/Loading";
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const query = searchParams.get("query") ?? "";
 
   useEffect(() => {
-    if (!query) return;
+    if (!query) {
+      return;
+    }
 
     const getData = async () => {
-      setIsLoading(true);
-      try {
-        const data = await fetchMoviesByQuery(query);
-        setMovies(data) || [];
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
-      }
+      const data = await fetchMoviesByQuery(query);
+      setMovies(data);
     };
     getData();
   }, [query]);
@@ -35,7 +29,7 @@ const MoviesPage = () => {
   };
 
   const initialValues = {
-    query,
+    query: "",
   };
 
   const handleChangeQuery = (newQuery) => {
@@ -46,13 +40,18 @@ const MoviesPage = () => {
     setSearchParams(searchParams);
   };
 
+  const filteredMovies = movies.filter((movie) =>
+    movie.title.toLowerCase().includes(query.toLowerCase())
+  );
+  if (filteredMovies === 0) {
+    return <p>Your request is undefined.</p>;
+  }
   return (
     <div className="container">
       <Formik initialValues={initialValues} onSubmit={onSubmit}>
         <Form className={s.form}>
           <Field
             className={s.input}
-            type="text"
             name="query"
             placeholder="Enter your request"
           />
@@ -61,16 +60,7 @@ const MoviesPage = () => {
           </button>
         </Form>
       </Formik>
-      {query && !isLoading && (
-        <>
-          {query.length > 0 ? (
-            <MovieList movies={movies} isLoading={isLoading} />
-          ) : (
-            <p>Any movies found for {query}!</p>
-          )}
-        </>
-      )}
-      {isLoading && <Loader />}
+      <MovieList movies={filteredMovies} />
     </div>
   );
 };

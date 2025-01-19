@@ -13,19 +13,13 @@ const options = {
 };
 
 export default async function fetchTrendingMovies() {
-  const url =
-    "https://api.themoviedb.org/3/trending/movie/day?include_adult=false&language=en-US&page=1";
-
-  const { data } = await axios.get(
-    `${BASE_URL}/trending/movie/day?language=en-US`,
-    options
-  );
+  const { data } = await axios.get(`${BASE_URL}/trending/movie/day`, options);
   return data.results;
 }
 
 export async function fetchMoviesByQuery(query) {
   const { data } = await axios.get(
-    `${BASE_URL}/search/movie?query=${query}&include_adult=false&language=en-US&page=1`,
+    `${BASE_URL}/search/movie?query=${query}`,
     options
   );
 
@@ -33,10 +27,7 @@ export async function fetchMoviesByQuery(query) {
 }
 
 export async function fetchMovieDetails(moviesId) {
-  const { data } = await axios.get(
-    `${BASE_URL}/movie/${moviesId}?language=en-US`,
-    options
-  );
+  const { data } = await axios.get(`${BASE_URL}/movie/${moviesId}`, options);
 
   return data;
 }

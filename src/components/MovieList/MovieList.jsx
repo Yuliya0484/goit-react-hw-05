@@ -1,4 +1,4 @@
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import s from "./MovieList.module.css";
 
 const MovieList = ({ movies }) => {
