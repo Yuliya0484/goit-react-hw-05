@@ -1,5 +1,7 @@
 .player {
   display: flex;
+  justify-content: center;
+  align-items: center;
   box-shadow: 0px 2px 10px 7px white;
   padding: 4px;
   border-radius: 8px;
@@ -8,12 +10,13 @@
 }
 
 .button {
-  padding: 4px 6px;
   background-color: white;
   color: rgba(23, 57, 81);
   border: 1px solid #235780;
   border-radius: 5px;
   cursor: pointer;
+  width: fit-content;
+  height: fit-content;
 }
 
 .volume {

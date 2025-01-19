@@ -1,66 +1,76 @@
 import { useState, useEffect } from "react";
-import fetchMoviesByQuery from "../../API/api";
+import { fetchMoviesByQuery } from "../../API/api";
 import MovieList from "../../components/MovieList/MovieList";
 import s from "./MoviesPage.module.css";
 import { useSearchParams } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
-//import Loader from "../../components/Loading/Loading";
+import { FcSearch } from "react-icons/fc";
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const query = searchParams.get("query") ?? "";
 
   useEffect(() => {
     if (!query) {
+      setMovies([]);
       return;
     }
 
     const getData = async () => {
-      const data = await fetchMoviesByQuery(query);
-      setMovies(data);
+      setIsLoading(true);
+      setError(null);
+      try {
+        const results = await fetchMoviesByQuery(query);
+        setMovies(results || []);
+      } catch (err) {
+        setError("Failed. Please try again.");
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
     };
+
     getData();
   }, [query]);
 
-  const onSubmit = (values) => {
-    handleChangeQuery(values.query);
-  };
-
-  const initialValues = {
-    query: "",
-  };
-
-  const handleChangeQuery = (newQuery) => {
-    if (!newQuery) {
-      return setSearchParams({});
+  const onSubmit = ({ query }, actions) => {
+    actions.resetForm();
+    const trimmedQuery = query.trim().toLowerCase();
+    if (!trimmedQuery) {
+      setSearchParams({});
+      return;
     }
-    searchParams.set("query", newQuery);
-    setSearchParams(searchParams);
+    setSearchParams({ query: trimmedQuery });
   };
 
-  const filteredMovies = movies.filter((movie) =>
-    movie.title.toLowerCase().includes(query.toLowerCase())
-  );
-  if (filteredMovies === 0) {
-    return <p>Your request is undefined.</p>;
-  }
   return (
     <div className="container">
-      <Formik initialValues={initialValues} onSubmit={onSubmit}>
+      <Formik initialValues={{ query }} onSubmit={onSubmit}>
         <Form className={s.form}>
           <Field
             className={s.input}
+            type="text"
             name="query"
             placeholder="Enter your request"
           />
           <button type="submit" className={s.button}>
             Search
+            <FcSearch size="12" />
           </button>
         </Form>
       </Formik>
-      <MovieList movies={filteredMovies} />
+      {isLoading && <p>Loading...</p>}
+      {error && <p className={s.error}>{error}</p>}
+      {query && !isLoading && movies.length === 0 && (
+        <p>Your request is undefined.</p>
+      )}
+      {query && movies.length > 0 && !isLoading && (
+        <MovieList movies={movies} />
+      )}
     </div>
   );
 };
