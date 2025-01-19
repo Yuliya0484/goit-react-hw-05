@@ -8,7 +8,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-//import Loading from "../../components/Loading/Loading";
+import { LiaHandPointLeft } from "react-icons/lia";
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
@@ -33,6 +33,7 @@ const MovieDetailsPage = () => {
   return (
     <div className={s.container}>
       <Link className={s.backbtn} to={goBackRef.current}>
+        <LiaHandPointLeft size="16" className={s.backicon} />
         Go Back
       </Link>
       <div className={s.poster_box}>
